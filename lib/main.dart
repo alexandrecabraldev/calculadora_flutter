@@ -25,6 +25,7 @@ class _ImcPageState extends State<ImcPage>{
   final TextEditingController pesoController = TextEditingController();
   final TextEditingController alturaController = TextEditingController();
   bool onButtonClick = false;
+  double result= 0;
 
    @override
   void dispose() {
@@ -38,7 +39,7 @@ class _ImcPageState extends State<ImcPage>{
     return Scaffold(
       appBar: AppBar(
         title:Text('IMC'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 9, 11, 12),
       ),
       body: Container(
         child: Column(
@@ -48,7 +49,7 @@ class _ImcPageState extends State<ImcPage>{
               controller: pesoController,
               decoration: InputDecoration(
               labelText: 'Peso (kg)',
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(color: Colors.blue),
               border: OutlineInputBorder(),
               ),
               style: TextStyle(color: Colors.black),
@@ -65,14 +66,13 @@ class _ImcPageState extends State<ImcPage>{
               style: TextStyle(color: Colors.black),
               keyboardType: TextInputType.number,
             ),
-            onButtonClick? Text('pegou'):Text('não pegou'), 
             
             ElevatedButton(
               onPressed: (){
                 
                 final double peso = double.tryParse(pesoController.text) ?? 0;
                 final double altura = double.tryParse(alturaController.text) ?? 0;
-                final double result = peso / (altura * altura);
+                result = peso / (altura * altura);
                 print(altura);
                 onButtonClick = true;
                 if(result<18.6){
@@ -91,6 +91,7 @@ class _ImcPageState extends State<ImcPage>{
               },
               child: Text('Calcular'),
             ),
+            Text('Resultado: $result'),
           ],
         ),
       ), 
