@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'resultScreen.dart';
 
 void main() {
   runApp(const CalculadoraApp());
@@ -39,7 +40,7 @@ class _ImcPageState extends State<ImcPage>{
     return Scaffold(
       appBar: AppBar(
         title:Text('IMC'),
-        backgroundColor: const Color.fromARGB(255, 9, 11, 12),
+        backgroundColor: Colors.blue,
       ),
       body: Container(
         child: Column(
@@ -73,21 +74,37 @@ class _ImcPageState extends State<ImcPage>{
                 final double peso = double.tryParse(pesoController.text) ?? 0;
                 final double altura = double.tryParse(alturaController.text) ?? 0;
                 result = peso / (altura * altura);
+                String message = '';
+
                 print(altura);
                 onButtonClick = true;
+
                 if(result<18.6){
                   print('Abaixo do peso ${result}');
+                  message= 'Abaixo do peso';
+
                 }else if(result>=18.6 && result<24.9){
                   print('Peso ideal ${result}');
+                  message = 'Peso ideal';
+
                 }else if(result>=24.9 && result<29.9){
                   print('Levemente acima do peso ${result}');
+                  message = 'Levemente acima do peso';
+
                 }else if(result>=29.9 && result<34.9){
                   print('Obesidade Grau I ${result}');
+                  message = 'Obesidade Grau I';
+
                 }else if(result>=34.9 && result<39.9){
                   print('Obesidade Grau II ${result}');
+                  message = 'Obesidade Grau II';
+
                 }else if(result>=40){
                   print('Gordão da XJ ${result}');
+                  message = 'Gordão da XJ';
                 }
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Result(result: result, message: message,)));
               },
               child: Text('Calcular'),
             ),
